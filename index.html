@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>크로크무슈</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+            margin: 0 auto;
+            display: block;
+            border-radius: 3%;
+            width: 50%;
+            height: 80%;
+            float: left;
+            margin-bottom: 50px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .custom-button {
+            width: 200px;
+            height: 40px;
+            font-size: 15px;
+            font-weight: bolder;
+            margin: 0 5px;
+        }
+        .button-container > * {
+            margin: 0 5px; 
+        }
+        .custom-upload {
+            display: inline-block;
+            cursor: pointer;
+            background-color: #007bff;
+            color: rgb(255, 255, 220);
+            border-radius: 4px;
+            width: 200px; 
+            height: 40px; 
+            font-size: 15px; 
+            font-weight: bolder;
+            text-align: center;
+            line-height: 40px;
+        }
+        .hidden-input {
+            display: none;
+        }
+        #mytitle {
+            text-align: center; 
+            font-family:'Times New Roman', Times, serif;
+            font-size: 40px;
+            margin-bottom: 1px;
+            margin-top: 10px;
+            font-weight: bolder;
+        }
+        #text1 {
+            font-size: smaller;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding-left: 180px; 
+        }
+        .text-container {
+            display: flex;
+            margin-top: 5px;
+        }
+        .text-container img {
+            margin-left: 150px;
+        }
+        .text-container span {
+            flex-grow: 7;
+        }
+        nav {
+            margin-left: 150px;
+            margin-right: 1%;
+            width: 13.7%;
+            height: 70%; 
+            float: left; 
+            position: inline-block;
+        }
+        aside {
+            margin-right: 150px;
+            margin-left: 1%;
+            width: 13.7%;
+            height: 70%; 
+            float: left; 
+            position: inline-block;
+        }
+        footer { 
+            width: 100%; 
+            height: 15%; 
+            clear: both; 
+        }
+        #menubar {
+            background-color: white;
+            padding: 10px 0;
+        }
+        #menubar ul {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        #menubar ul li {
+            display: inline-block;
+            list-style-type: none;
+            padding: 10px 20px;
+        }
+        #menubar ul li a {
+            color: black;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        #menubar ul li a:hover {
+            color: violet;
+        }
+        .arrow-down {
+            width: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-container">
+        <img src="images/돋보기.png" style="width: 25px; height: 20px; cursor: pointer;" onclick="alertMalfuction()">
+        <span id="text1">
+            <span id="lang-korean" style="cursor: pointer;" onclick="reloadPage()">한국어</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="lang-japanese" style="cursor: pointer;" onclick="alertLanguage('일본어')">日本語</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="lang-chinese" style="cursor: pointer;" onclick="alertLanguage('중국어')">中國語</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="lang-english" style="cursor: pointer;" onclick="alertLanguage('영어')">ENGLISH</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="lang-french" style="cursor: pointer;" onclick="alertLanguage('프랑스어')">FRANÇAIS</span>
+        </span>
+        <input type="button" value="저작권법 지키기" style="background-color: rgb(212, 210, 210); border-color: rgb(212, 210, 210); height: 30px; width: 100px; font-size: 10px; font-weight: bolder; border-radius: 5%; text-decoration: none;" onclick="window.open('https://www.copyright.or.kr/main.do', '_blank');">&nbsp;&nbsp;
+        <input type="button" value="저작권 법" style="background-color: rgb(212, 210, 210); border-color: rgb(212, 210, 210); margin-right: 150px; height: 30px; width: 70px; font-size: 10px; font-weight: bolder; border-radius: 5%; text-decoration: none;" onclick="window.open('https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A0%80%EC%9E%91%EA%B6%8C%EB%B2%95', '_blank');">
+    </div>
+    <p id="mytitle">Protecting Copyrights</p>
+    <div id="menubar" style="margin-bottom: -8px;">
+        <ul>
+            <li onclick="alertRestriction()"><a href="#"><strong>AI 커버곡</strong> <svg class="arrow-down" viewBox="0 0 13 8"><polygon fill="#979797" points="6.5,8 0,1.4 1.4,0 6.5,5.2 11.6,0 13,1.4"></polygon></svg></a></li>
+            <li onclick="alertRestriction()"><a href="#"><strong>딥페이크</strong> <svg class="arrow-down" viewBox="0 0 13 8"><polygon fill="#979797" points="6.5,8 0,1.4 1.4,0 6.5,5.2 11.6,0 13,1.4"></polygon></svg></a></li>
+            <li onclick="alertRestriction()"><a href="#"><strong>범죄악용 위험</strong> <svg class="arrow-down" viewBox="0 0 13 8"><polygon fill="#979797" points="6.5,8 0,1.4 1.4,0 6.5,5.2 11.6,0 13,1.4"></polygon></svg></a></li>
+            <li onclick="alertRestriction()"><a href="#"><strong>직업의 감소</strong> <svg class="arrow-down" viewBox="0 0 13 8"><polygon fill="#979797" points="6.5,8 0,1.4 1.4,0 6.5,5.2 11.6,0 13,1.4"></polygon></svg></a></li>
+            <li onclick="alertRestriction()"><a href="#"><strong>법적 제지 강화</strong> <svg class="arrow-down" viewBox="0 0 13 8"><polygon fill="#979797" points="6.5,8 0,1.4 1.4,0 6.5,5.2 11.6,0 13,1.4"></polygon></svg></a></li>
+            <li onclick="alertRestriction()"><a href="#"><strong>저작권 표시 의무화</strong> <svg class="arrow-down" viewBox="0 0 13 8"><polygon fill="#979797" points="6.5,8 0,1.4 1.4,0 6.5,5.2 11.6,0 13,1.4"></polygon></svg></a></li>
+        </ul>
+    </div>
+    <hr style="margin-left: 150px; margin-right: 150px; margin-top: 0px; margin-bottom: -5px;"><hr style="margin-left: 150px; margin-right: 150px; margin-bottom: 15px;">
+    <nav>
+        <p style="text-align: right; font-size: 10px;">법률신문</p>
+        <span style="font-weight: bolder; font-size: 20px;">중국, 생성형 AI에 의한 저작권 침해 판결</span><br>
+        <p style="font-weight: lighter; font-size: 12px;">
+            생성형 AI 산업이 지속 발전함에 따라, AI가 생성한 콘텐츠에 대한 법적 논란도 끊임없이 제기되고 있다. 2024년 2월 8일, 중국 광저우 인터넷법원이 
+            생성형 AI 서비스로 인한 저작권 침해 사건에 대해 유책 판결(원고 청구 인용판결)을 선고하였는데, 이는 중국 내뿐만 아니라 전 세계적으로도 
+            생성형 AI 서비스 제공자의 저작권 침해를 인정한 첫 사례로 평가되고 있다. 
+        </p>
+        <a href="https://www.lawtimes.co.kr/LawFirm-NewsLetter/197411" style="font-size: smaller;">READ</a>
+    </nav>
+    <canvas id="canvas"></canvas>
+    <a href="https://www.businesspost.co.kr/BP?command=article_view&num=339429", target="_blank">
+        <aside>
+            <img src="images/뉴스기사.jpg" style="width: 220px; margin-bottom: -10px;"><br>
+            <p style="font-size: 10px; color: gray;">▲ 한국음악저작권협회(사진)가 30일 국회에서 공청회를 열고 생성형 AI 기반 콘텐츠와 관련해 표기 의무화법을 논의한다고 16일 밝혔다.</p>
+            <p style="font-size: 20px; font-weight: bolder; margin-bottom: -8px;">한국음악저작권협회, 공청회 열고 생성형 AI 콘텐츠 표기 의무화법 도입 논의</p>
+            <p style="font-size: 12px; font-weight:lighter;">
+                한국음악저작권협회는 국회 문화체육관광위원회와 30일 국회의원회관 제2소회의실에서 생성형 인공지능 콘텐츠 표기 의무화법 도입을 위한 국회 공청회를 연다고 16일 밝혔다.
+            </p>
+        </aside>
+    </a>
+    <footer>
+        <div class="button-container">
+            <label for="imageUpload" class="custom-upload">이미지 생성</label>
+            <input type="file" id="imageUpload" class="hidden-input" accept="image/*">
+            <button id="addWatermark" class="custom-button">워터마크 추가하기</button>
+            <button id="downloadImage" class="custom-button">이미지 다운로드</button>
+            <a id="downloadLink" style="display: none;"></a>
+        </div>
+    </footer>      
+    <script>
+        function alertMalfuction() {
+            alert('일시적으로 지원하지 않는 기능입니다.');
+        }
+        function reloadPage() {
+            window.location.reload();
+        }
+        function alertLanguage(language) {
+            alert(language + '는 지원하지 않는 언어입니다.');
+        }
+        function alertRestriction() {
+            alert('제한된 기능입니다.');
+        }
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const imageUpload = document.getElementById('imageUpload');
+
+        imageUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                }
+                img.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        });
+
+        document.getElementById('addWatermark').addEventListener('click', () => {
+            const watermarkText = '크로크무슈';
+            const watermarkCount = 5;
+            const watermarkFontSize = 20;
+            const watermarkMargin = 10;
+
+            for (let i = 0; i < 9; i++) { 
+                ctx.font = `${watermarkFontSize}px Arial`;
+                ctx.fillStyle = 'ivory';    
+
+                for (let j=0; j<watermarkCount; j++){
+                    const x = canvas.width - 120 * j + i * 10;
+                    const y = canvas.height - 370 + i * 50;
+
+                    ctx.fillText(watermarkText, x, y);
+                }
+            }
+
+            alert('워터마크가 추가되었습니다.');
+        });
+
+        document.getElementById('downloadImage').addEventListener('click', () => {
+            const downloadLink = document.getElementById('downloadLink');
+            downloadLink.href = canvas.toDataURL();
+            downloadLink.download = 'watermarked_image.png';
+            downloadLink.click();
+        });
+    </script>
+</body>
+</html>
